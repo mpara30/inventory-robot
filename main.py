@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 import sys
-import time
+import servomotors
 import motors
 
 pygame.init()
@@ -22,6 +22,7 @@ instructionRect = instructionSurf.get_rect()
 instructionRect.bottomleft = (10, WINDOWHEIGHT - 10)
 
 motors.setup()
+servomotors.setup()
 
 while True:
     windowSurface.fill(BGCOLOR)
@@ -33,6 +34,7 @@ while True:
         elif event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 motors.destroy()
+                servomotors.destroy()
                 pygame.quit()
                 sys.exit()
 
@@ -51,6 +53,22 @@ while True:
             if event.key == K_d:
                 motors.dreapta()
                 print("ROBOTUL MERGE LA DREAPTA")
+
+            if event.key == K_UP:
+                servomotors.set_0()
+                print("Camera se ridica")
+
+            if event.key == K_DOWN:
+                servomotors.set_90()
+                print("Camera coboara")
+
+            if event.key == K_LEFT:
+                servomotors.set_stanga()
+                print("Camera se roteste la stanga")
+
+            if event.key == K_RIGHT:
+                servomotors.set_dreapta()
+                print("Camera se roteste la dreapta")
 
         elif event.type == KEYUP:
             if event.key == K_w:
